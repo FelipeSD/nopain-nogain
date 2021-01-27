@@ -5,7 +5,7 @@ import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 
 
-const urlBase: string = "http://localhost:3000/clients";
+const urlBase: string = "http://localhost:3000/client";
 
 @Injectable({
   providedIn: 'root'

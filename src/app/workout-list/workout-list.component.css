@@ -1,0 +1,33 @@
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    position: absolute;
+    border: none;
+    border-radius: 100%;
+    padding: 5px;
+    
+	height: 4rem;
+	width: 4rem;
+}
+.icon-button i{
+    font-size: 25px;
+}
+
+.icon-button.icon-edit{
+	top: -1.5rem;
+	right: -1.5rem;
+}
+
+.icon-button.icon-delete{
+	top: -1.5rem;
+	right: calc(-1.5rem + 4rem + 5px);
+}
+
+.exercise-card:hover .icon-button{
+    opacity: 1;
+    transition: opacity .5s linear;
+}

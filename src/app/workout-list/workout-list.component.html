@@ -1,0 +1,98 @@
+<section class="container my-4">
+    <form [formGroup]="findClientForm">
+        <h3 class="my-5">Find client's workout list</h3>
+        <div class="form-row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="owner">Client:</label>
+                    <select class="form-control" 
+                        #clientOwner
+                        formControlName="owner" 
+                        id="owner" 
+                        (change)="onChange(clientOwner.value)">
+                        <option *ngFor="let client of clientList" value="{{client._id}}">
+                            {{client.name}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    
+    <article *ngIf="selectedClient">
+        <hr class="my-3 border">
+        <h4>Information:</h4>
+        <div class="my-4">
+            <p>Name: {{selectedClient.name}}</p>
+            <p>Gender: {{selectedClient.gender}}</p>
+            <p>Age: {{selectedClient.age}}</p>
+            <p>Weight: {{selectedClient.weight}}</p>
+            <p>Height: {{selectedClient.height}}</p>
+        </div>
+        <div class="row my-4" *ngIf="workoutList.length">
+            <div class="col-sm-6 mb-3" *ngFor="let workout of workoutList">
+                <div class="card exercise-card">
+                    <div class="position-relative">
+                        <a routerLink="/workout/update/{{workout._id}}" class="btn btn-info icon-button icon-edit">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a routerLink="/workout/delete/{{workout._id}}" class="btn btn-danger icon-button icon-delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">                            
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Exercise:</label>
+                                    <p>{{workout.exercise}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="weight">Weight:</label>
+                                    <p>{{workout.weight}}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="repetition">Repetition:</label>
+                                    <p>{{workout.repetition}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="restTime">Rest time:</label>
+                                    <p>{{workout.restTime}}</p>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="sets">Sets:</label>
+                                    <p>{{workout.sets}}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm">
+                                <div class="form-group">
+                                    <label for="frequency">Frequency:</label>
+                                    <p>{{workout.frequency}}</p>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="notes">Notes:</label>
+                                    <p>{{workout.notes}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>

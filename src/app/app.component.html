@@ -1,8 +1,17 @@
-<main>
-  <header>
+<header>
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark box-shadow">
+    <a class="my-0 mr-md-auto font-weight-normal text-white" routerLink="/">
+      <h5 class="">Workout Lists</h5>
+    </a>
 
-  </header>
-  <section class="section">
-    <button class="btn btn-primary">Botao</button>
-  </section>
+    <nav class="my-2 my-md-0 mr-md-3">
+      <a class="p-4 text-white" routerLink="client/list">Client list</a>
+      <a class="p-4 text-white" routerLink="client/new">Register Client</a>
+      <a class="p-4 text-white" href="workout/new">Register Workout List</a>
+      <a class="p-4 text-white" href="workout/list">Check Workout List</a>
+    </nav>
+  </div>
+</header>
+<main class="section">
+  <router-outlet></router-outlet>
 </main>

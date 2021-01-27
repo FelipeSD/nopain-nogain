@@ -1,0 +1,48 @@
+<section class="container">
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit(this)" *ngIf="clientForm">
+        <h3 class="my-5">Client register</h3>
+        <div class="form-row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input class="form-control" formControlName="name" type="text" id="name">
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input class="form-control" formControlName="age" type="text" id="age">
+                </div>
+            </div>
+
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="weight">Weight:</label>
+                    <input class="form-control" formControlName="weight" type="text" id="weight">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="height">Height:</label>
+                    <input class="form-control" formControlName="height" type="text" id="height">
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select class="form-control" formControlName="gender" id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex mt-3">
+            <div class="ml-auto">
+                <button type="reset" class="btn btn-outline-secondary mr-2" (click)="resetForm">Cancel</button>
+                <button type="submit" class="btn btn-outline-warning">Save</button>
+            </div>
+        </div>
+    </form>
+</section>

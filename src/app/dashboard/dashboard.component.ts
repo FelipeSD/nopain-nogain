@@ -1,6 +1,5 @@
-import { serializeNodes } from '@angular/compiler/src/i18n/digest';
 import { Component, OnInit } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,10 +8,15 @@ import { TestBed } from '@angular/core/testing';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private titleService:Title
+  ) {
+
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gym App | Dashboard");
+
   }
   
 }

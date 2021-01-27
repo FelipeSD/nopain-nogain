@@ -12,6 +12,10 @@ textarea {
     resize: none;
 }
 
+h3 {
+    color: #ffffff;
+}
+
 .form-control, 
 .form-control:focus, 
 .form-control:hover,

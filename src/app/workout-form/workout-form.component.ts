@@ -6,6 +6,7 @@ import { WorkoutList } from '../interface/workoutList';
 import { Location } from '@angular/common';
 import { Client } from '../interface/client';
 import { ClientService } from '../service/client.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-workout-form',
@@ -22,10 +23,13 @@ export class WorkoutFormComponent implements OnInit {
     public service: WorkoutService,
     public clientService:  ClientService,
     private activatedRoute: ActivatedRoute,
-    private local: Location
+    private local: Location,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gym App | Workout form");
+
     this.clientService.getAll().subscribe((res)=>{
       this.clientList = res;
     })

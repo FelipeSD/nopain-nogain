@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from '../service/client.service';
 import { Client } from '../interface/client';
 import { Location } from '@angular/common';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-client-form',
@@ -17,10 +18,13 @@ export class ClientFormComponent implements OnInit {
     private router: Router,
     public service: ClientService,
     private activatedRoute: ActivatedRoute,
-    private local: Location
+    private local: Location,
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gym App | Client form");
+
     if(/delete/gi.test(this.router.url)){
       this.activatedRoute.params.subscribe(params => {
         let id = params['id'];

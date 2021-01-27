@@ -14,7 +14,11 @@
         </thead>
         <tbody>
             <tr *ngFor="let client of clients">
-                <td>{{client.name}}</td>
+                <td>
+                    <a class="text-white" [routerLink]="['/workout/list', {client: client._id }]">
+                        {{client.name}}
+                    </a>
+                </td>
                 <td>{{client.age}}</td>
                 <td>{{client.height}}</td>
                 <td>{{client.weight}}</td>

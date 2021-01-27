@@ -4,6 +4,7 @@ import { ClientService } from '../service/client.service';
 import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-workout-list',
@@ -21,9 +22,12 @@ export class WorkoutListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public clientService :ClientService, 
+    private titleService:Title
   ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle("Gym App | Workout list");
+
     this.findClientForm = new FormGroup({
       owner: new FormControl('')
     });

@@ -28,7 +28,7 @@
             <p>Gender: {{selectedClient.gender}}</p>
             <p>Age: {{selectedClient.age}}</p>
             <p>Weight: {{selectedClient.weight}}</p>
-            <p>Height: {{selectedClient.height}}</p>
+            <p>Height: {{selectedClient.height | measure}}</p>
         </div>
         <div class="row my-4" *ngIf="workoutList.length">
             <div class="col-sm-6 mb-3" *ngFor="let workout of workoutList">

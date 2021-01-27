@@ -12,6 +12,7 @@ import { ClientFormComponent } from './client-form/client-form.component';
 import { RouterModule } from '@angular/router';
 import { WorkoutListComponent } from './workout-list/workout-list.component';
 import { ClientListComponent } from './client-list/client-list.component';
+import { MeasurePipe } from './measure.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ClientListComponent } from './client-list/client-list.component';
     WorkoutFormComponent,
     ClientFormComponent,
     WorkoutListComponent,
-    ClientListComponent
+    ClientListComponent,
+    MeasurePipe
   ],
   imports: [
     BrowserModule,

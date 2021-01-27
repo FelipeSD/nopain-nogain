@@ -5,7 +5,7 @@ import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 
 
-const urlBase: string = "http://localhost:3000/trainingSheet";
+const urlBase: string = "https://nopain-nogain-server.glitch.me/trainingSheet";
 
 @Injectable({
   providedIn: 'root'

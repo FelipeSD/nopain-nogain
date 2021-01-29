@@ -1,3 +1,14 @@
 main.section{
     min-height: 100vh;
 }
+
+@media (max-width: 767px) {
+    nav{
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav > a{
+        padding-top: 0px;
+    }
+}

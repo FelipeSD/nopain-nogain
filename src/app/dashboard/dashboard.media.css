@@ -1,0 +1,24 @@
+@media (max-width: 767px) {
+    .nopain-nogain{
+        min-height: unset;
+        margin-top: 5rem;
+    }
+
+    .title{
+        font-size: 5rem;
+        padding: 0;
+    }
+
+    .title .phrase2{
+        margin-left: 0;
+    }
+
+    .animated-border {
+        position: static;
+
+        width: 200px;
+        height: 200px;
+
+        margin-bottom: 20px;
+    }
+}

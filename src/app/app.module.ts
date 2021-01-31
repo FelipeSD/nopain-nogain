@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +16,8 @@ import { RouterModule } from '@angular/router';
 import { WorkoutListComponent } from './workout-list/workout-list.component';
 import { ClientListComponent } from './client-list/client-list.component';
 import { MeasurePipe } from './measure.pipe';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -31,6 +36,8 @@ import { MeasurePipe } from './measure.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, 'angular-auth-firebase'),
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

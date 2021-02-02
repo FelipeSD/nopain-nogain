@@ -8,10 +8,16 @@
     </a>
 
     <nav class="my-2 my-md-0 mr-md-3">
-      <a class="p-3 p-md-4 text-white" routerLink="client/list">Client list</a>
-      <a class="p-3 p-md-4 text-white" routerLink="client/new">Register Client</a>
-      <a class="p-3 p-md-4 text-white" routerLink="workout/new">Register Workout List</a>
-      <a class="p-3 p-md-4 text-white" routerLink="workout/list">Check Workout List</a>
+      <div class="" *ngIf="isLoggedIn; else loggedOut">
+        <a class="p-3 p-md-4 text-white" routerLink="client/list">Client list</a>
+        <a class="p-3 p-md-4 text-white" routerLink="client/new">Register Client</a>
+        <a class="p-3 p-md-4 text-white" routerLink="workout/new">Register Workout List</a>
+        <a class="p-3 p-md-4 text-white" routerLink="workout/list">Check Workout List</a>
+        <a class="text-white btn btn-sm btn-outline-primary" routerLink="logout">Logout</a>
+      </div>
+      <ng-template #loggedOut>
+        <a class="text-white btn btn-sm btn-outline-primary" routerLink="login">Login</a>
+      </ng-template>
     </nav>
   </div>
 </header>

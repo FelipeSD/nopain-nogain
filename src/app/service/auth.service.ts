@@ -2,17 +2,24 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user: any;
   
+  user;
+  authStatusSub;
+  currentAuthStatus;
+
   constructor(
     private firebaseAuth: AngularFireAuth,
-    public router: Router,  
+    public router: Router,
   ) { 
+    this.authStatusSub = new BehaviorSubject(this.user);
+    this.currentAuthStatus = this.authStatusSub.asObservable();
+
     this.checkAuthState();
   }
 
@@ -20,14 +27,11 @@ export class AuthService {
     this.firebaseAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
-        localStorage.setItem('user', JSON.stringify(this.user));
-        JSON.parse(localStorage.getItem('user'));
-        this.router.navigate(['/']);
+        this.authStatusSub.next(user);
       } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
+        this.authStatusSub.next(null);
       }
-    })
+    });
   }
 
   signInWithGoogle() {
@@ -38,18 +42,18 @@ export class AuthService {
     
     return this.firebaseAuth.signInWithPopup(provider).then(()=>{
       this.checkAuthState();
+      this.router.navigate(['/']).then(()=>{
+        window.location.reload();
+      });
     });
   }
 
   logout(){
     return this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('user');
-      this.router.navigate(['/']);
+      this.router.navigate(['/']).then(()=>{
+        window.location.reload();
+      });
     })
-  }
-
-  get isLoggedIn(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return (user !== null && user.emailVerified !== false) ? true : false;
   }
 }

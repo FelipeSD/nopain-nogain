@@ -7,8 +7,8 @@ import { AuthService } from './service/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'nopain-nogain';
-  isLoggedIn: boolean;
+  title = 'Gym app';
+  isLoggedIn;
 
   constructor(
     private authService: AuthService,
@@ -16,6 +16,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.isLoggedIn = this.authService.isLoggedIn;
+    this.authService.checkAuthState();
+    this.authService.currentAuthStatus.subscribe(authStatus => {
+      this.isLoggedIn = authStatus;
+    });
   }
 }

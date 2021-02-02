@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ClientService } from '../service/client.service';
 import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
 @Component({

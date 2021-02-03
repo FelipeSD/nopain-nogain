@@ -19,7 +19,7 @@ export class AuthService {
   ) { 
     this.authStatusSub = new BehaviorSubject(this.user);
     this.currentAuthStatus = this.authStatusSub.asObservable();
-
+    
     this.checkAuthState();
   }
 
@@ -50,7 +50,7 @@ export class AuthService {
 
   logout(){
     return this.firebaseAuth.signOut().then(() => {
-      localStorage.removeItem('user');
+      this.checkAuthState();
       this.router.navigate(['/']).then(()=>{
         window.location.reload();
       });

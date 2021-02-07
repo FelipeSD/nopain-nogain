@@ -42,18 +42,14 @@ export class AuthService {
     
     return this.firebaseAuth.signInWithPopup(provider).then(()=>{
       this.checkAuthState();
-      this.router.navigate(['/']).then(()=>{
-        window.location.reload();
-      });
+      this.router.navigate(['/']);
     });
   }
 
   logout(){
     return this.firebaseAuth.signOut().then(() => {
       this.checkAuthState();
-      this.router.navigate(['/']).then(()=>{
-        window.location.reload();
-      });
+      this.router.navigate(['/']);
     })
   }
 }

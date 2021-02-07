@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Client } from '../interface/client';
 import { ClientService } from '../service/client.service';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-workout-form',
@@ -17,6 +18,7 @@ export class WorkoutFormComponent implements OnInit {
   workoutForm: FormGroup;
   
   clientList: Client[];
+  currentUser;
 
   constructor(
     private router: Router,
@@ -24,13 +26,21 @@ export class WorkoutFormComponent implements OnInit {
     public clientService:  ClientService,
     private activatedRoute: ActivatedRoute,
     private local: Location,
-    private titleService:Title
-  ) { }
+    private titleService:Title,
+    private authService: AuthService
+
+  ) {
+    this.authService.currentAuthStatus.subscribe(authStatus => {
+      this.currentUser = authStatus;
+    });
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle("Gym App | Workout form");
+    
+    let userId = this.currentUser.uid;
 
-    this.clientService.getAll().subscribe((res)=>{
+    this.clientService.getAll(userId).subscribe((res)=>{
       this.clientList = res;
     })
 

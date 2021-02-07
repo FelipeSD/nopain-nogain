@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 
 
-const urlBase: string = "https://nopain-nogain-server.glitch.me/trainingSheet";
+const urlBase: string = `${environment.apiUrl}/trainingSheet`;
 
 @Injectable({
   providedIn: 'root'

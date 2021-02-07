@@ -1,11 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 
 
-const urlBase: string = "https://nopain-nogain-server.glitch.me/client";
+const urlBase: string = `${environment.apiUrl}/client`;
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,28 @@ export class ClientService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Client[]> {
-    return this.http.get<Client[]>(urlBase);
+  getAll(userId: string): Observable<Client[]> {
+    return this.http.post<Client[]>(`${urlBase}/findAll`, {userId});
   }
 
-  getWorkoutList(id : string): Observable<WorkoutList[]> {
-    return this.http.get<WorkoutList[]>(`${urlBase}/${id}/trainingSheets`);
+  getWorkoutList(userId: string, clientId : string): Observable<WorkoutList[]> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        userId
+      }
+    }
+    
+    return this.http.get<WorkoutList[]>(`${urlBase}/${clientId}/trainingSheets`, options);
   }
 
-  get(id : string): Observable<Client> {
-    return this.http.get<Client>(`${urlBase}/${id}`);
+  get(userId: string, clientId : string): Observable<Client> {
+    return this.http.post<Client>(`${urlBase}/findOne`, {
+      _id: clientId,
+      userId: userId
+    });
   }
 
   update(id : string, data : Client) : Observable<Client> {
@@ -34,7 +47,15 @@ export class ClientService {
     return this.http.post<Client>(urlBase, data);
   }
 
-  delete(id: string){
-    return this.http.delete(`${urlBase}/${id}`);
+  delete(userId: string, clientId: string){
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        userId
+      }
+    }
+    return this.http.delete(`${urlBase}/${clientId}`, options);
   }
 }

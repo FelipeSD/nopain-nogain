@@ -5,6 +5,7 @@ import { ClientService } from '../service/client.service';
 import { Client } from '../interface/client';
 import { Location } from '@angular/common';
 import {Title} from "@angular/platform-browser";
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-client-form',
@@ -14,13 +15,23 @@ import {Title} from "@angular/platform-browser";
 export class ClientFormComponent implements OnInit {
   clientForm: FormGroup;
   
+  currentUser;
+
   constructor(
     private router: Router,
     public service: ClientService,
     private activatedRoute: ActivatedRoute,
     private local: Location,
-    private titleService:Title
-  ) { }
+    private titleService:Title,
+
+    private authService: AuthService
+  ) { 
+
+    this.authService.currentAuthStatus.subscribe(authStatus => {
+      this.currentUser = authStatus;
+    });
+    
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle("Gym App | Client form");
@@ -56,9 +67,10 @@ export class ClientFormComponent implements OnInit {
 
       // check action
       if(/update/gi.test(this.router.url)){
-
+        formValue.userId = this.currentUser.uid;
         this.activatedRoute.params.subscribe(params => {
           let id = params['id'];
+          alert('update')
           this.updateClient(id, formValue);
         });
 
@@ -74,13 +86,20 @@ export class ClientFormComponent implements OnInit {
   }
 
   addClient(objForm: Client){
-    this.service.create(objForm).subscribe((res)=>{
-      this.clientForm.reset();
-      alert("New client successfuly added");
-    });
+    if(this.currentUser && this.currentUser.uid){
+      objForm.userId = this.currentUser.uid;
+      this.service.create(objForm).subscribe((res)=>{
+        this.clientForm.reset();
+        alert("New client successfuly added");
+      });
+    }else{
+      alert("You must be logged in to add a client");
+    }
   }
 
   updateClient(id: string, objForm: Client){
+    objForm.userId = this.currentUser.uid;
+    console.log(id, objForm)
     this.service.update(id, objForm).subscribe((res)=>{
       this.clientForm.reset();
       alert("Client successfuly updated");
@@ -89,15 +108,17 @@ export class ClientFormComponent implements OnInit {
   }
 
   deleteClient(id: string){
-    this.service.delete(id).subscribe((res)=>{
+    let userId = this.currentUser.uid;
+
+    this.service.delete(userId, id).subscribe((res)=>{
       alert("Client successfuly deleted");
       this.local.back();
     });
   }
 
   getClient(id: string){
-    this.service.get(id).subscribe((res)=>{
-
+    let userId = this.currentUser.uid;
+    this.service.get(userId, id).subscribe((res)=>{
       for(let elem in res){
         let formElement = this.clientForm.get(elem);
         if(formElement){

@@ -5,6 +5,7 @@ import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-workout-list',
@@ -18,12 +19,18 @@ export class WorkoutListComponent implements OnInit {
   workoutList: WorkoutList[];
 
   clientList: Client[];
+  currentUser;
 
   constructor(
     private route: ActivatedRoute,
     public clientService :ClientService, 
-    private titleService:Title
-  ) { }
+    private titleService:Title,
+    private authService: AuthService
+  ) {
+    this.authService.currentAuthStatus.subscribe(authStatus => {
+      this.currentUser = authStatus;
+    });
+  }
 
   ngOnInit(): void {
     this.titleService.setTitle("Gym App | Workout list");
@@ -31,8 +38,10 @@ export class WorkoutListComponent implements OnInit {
     this.findClientForm = new FormGroup({
       owner: new FormControl('')
     });
+    
+    let userId = this.currentUser.uid;
 
-    this.clientService.getAll().subscribe((res)=>{
+    this.clientService.getAll(userId).subscribe((res)=>{
       this.clientList = res;
 
       let clientId = this.route.snapshot.paramMap.get("client");
@@ -47,11 +56,13 @@ export class WorkoutListComponent implements OnInit {
     this.selectedClient = null;
     this.workoutList = [];
 
-    this.clientService.get(value).subscribe((res: Client)=>{
+    let userId = this.currentUser.uid;
+
+    this.clientService.get(userId, value).subscribe((res: Client)=>{
       this.selectedClient = res;
-      this.clientService.getWorkoutList(res._id).subscribe((workoutRes)=>{
+      this.clientService.getWorkoutList(userId, res._id).subscribe((workoutRes)=>{
         this.workoutList = workoutRes;
-      })
+      });
     });
   }
 

@@ -4,6 +4,8 @@ export interface Client {
     "updatedAt": string;
     "__v": number;
     
+    "userId": string;
+
     name: String;
     age: Number; // years
     weight: Number; // Kg

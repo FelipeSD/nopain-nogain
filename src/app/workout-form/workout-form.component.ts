@@ -79,6 +79,7 @@ export class WorkoutFormComponent implements OnInit {
 
       // check action
       if(/update/gi.test(this.router.url)){
+        formValue.userId = this.currentUser.uid;
 
         this.activatedRoute.params.subscribe(params => {
           let id = params['id'];
@@ -97,16 +98,22 @@ export class WorkoutFormComponent implements OnInit {
   }
 
   addWorkout(objForm: WorkoutList){
-    this.service.create(objForm).subscribe((res)=>{
-      this.workoutForm.reset();
-      alert("New workout successfuly added");
-    });
+    if(this.currentUser && this.currentUser.uid){
+      let data = {
+        "userId": this.currentUser.uid,
+        ...objForm,
+      };
+      this.service.create(data).subscribe((res)=>{
+        this.workoutForm.reset();
+        alert("New workout successfuly added");
+      });
+    }
   }
 
   updateWorkout(id: string, objForm: WorkoutList){
+    console.log(objForm);
     this.service.update(id, objForm).subscribe((res)=>{
       this.workoutForm.reset();
-      console.log(objForm.owner)
       alert("Workout successfuly updated");
       this.router.navigate(['workout/list', {"client": objForm.owner}]);
     });
@@ -119,8 +126,10 @@ export class WorkoutFormComponent implements OnInit {
     });
   }
 
-  getWorkout(id: string){
-    this.service.get(id).subscribe((res)=>{
+  getWorkout(workoutId: string){
+    let userId = this.currentUser.uid;
+    
+    this.service.get(userId, workoutId).subscribe((res)=>{
 
       for(let elem in res){
         let formElement = this.workoutForm.get(elem);

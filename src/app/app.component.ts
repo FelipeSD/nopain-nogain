@@ -15,10 +15,18 @@ export class AppComponent implements OnInit {
   ){
   }
 
-  ngOnInit(){
+  ngOnInit(): void{
     this.authService.checkAuthState();
     this.authService.currentAuthStatus.subscribe(authStatus => {
       this.isLoggedIn = authStatus;
     });
+  }
+
+  onSignIn(): void {
+    this.authService.signInWithGoogle();
+  }
+
+  onLogout(): void{
+    this.authService.logout();
   }
 }

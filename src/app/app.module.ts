@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +17,6 @@ import { ClientListComponent } from './client-list/client-list.component';
 import { MeasurePipe } from './measure.pipe';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
-import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
@@ -29,7 +28,6 @@ import { AuthGuard } from './guard/auth.guard';
     WorkoutListComponent,
     ClientListComponent,
     MeasurePipe,
-    LoginComponent
   ],
   imports: [
     BrowserModule,

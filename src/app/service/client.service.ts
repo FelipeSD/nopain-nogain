@@ -6,7 +6,7 @@ import { Client } from '../interface/client';
 import { WorkoutList } from '../interface/workoutList';
 
 
-const urlBase: string = `${environment.apiUrl}/client`;
+const urlBase = `${environment.apiUrl}/client`;
 
 @Injectable({
   providedIn: 'root'
@@ -27,15 +27,15 @@ export class ClientService {
       body: {
         userId
       }
-    }
-    
+    };
+
     return this.http.get<WorkoutList[]>(`${urlBase}/${clientId}/trainingSheets`, options);
   }
 
   get(userId: string, clientId : string): Observable<Client> {
     return this.http.post<Client>(`${urlBase}/findOne`, {
       _id: clientId,
-      userId: userId
+      userId
     });
   }
 
@@ -55,7 +55,7 @@ export class ClientService {
       body: {
         userId
       }
-    }
+    };
     return this.http.delete(`${urlBase}/${clientId}`, options);
   }
 }

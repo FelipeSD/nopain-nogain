@@ -2,7 +2,7 @@
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-dark box-shadow">
     <a class="my-0 mr-md-auto font-weight-normal text-white" routerLink="/">
       <h5 class="">
-        <img src="./assets/logo.png" alt="Logo" style="width: 50px;" height="50px">
+        <img src="./assets/logo.png" alt="Logo" style="width: 50px; height: 50px">
         <span class="ml-2">Gym App</span>
       </h5>
     </a>
@@ -13,10 +13,15 @@
         <a class="p-3 p-md-4 text-white" routerLink="client/new">Register Client</a>
         <a class="p-3 p-md-4 text-white" routerLink="workout/new">Register Workout List</a>
         <a class="p-3 p-md-4 text-white" routerLink="workout/list">Check Workout List</a>
-        <a class="text-white btn btn-sm btn-outline-primary" routerLink="logout">Logout</a>
+        <a class="text-white btn btn-sm btn-outline-primary" (click)="onLogout()">Logout</a>
       </div>
       <ng-template #loggedOut>
-        <a class="text-white btn btn-sm btn-outline-primary" routerLink="login">Login</a>
+          <button ngbDropdownItem
+                  class="btn btn-danger"
+                  (click)="onSignIn()">
+            <i class="fab fa-google mr-1"></i>
+            Sign in with Google
+          </button>
       </ng-template>
     </nav>
   </div>
